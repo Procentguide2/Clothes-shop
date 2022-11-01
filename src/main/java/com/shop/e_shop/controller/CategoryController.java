@@ -3,7 +3,11 @@ package com.shop.e_shop.controller;
 import com.shop.e_shop.model.Category;
 import com.shop.e_shop.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -15,8 +19,14 @@ public class CategoryController {
     CategoryRepository categoryRepository;
 
     @GetMapping("/categories")
-    public List<Category> getAllCategories(){
-        return categoryRepository.findAll();
+    public ResponseEntity<List<Category>> getAllCategories(){
+        return new ResponseEntity<>(categoryRepository.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping("/categories")
+    public String saveCategory(@RequestBody Category category){
+        categoryRepository.save(category);
+        return "redirect:/categories";
     }
 
 
