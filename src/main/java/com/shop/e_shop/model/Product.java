@@ -1,6 +1,8 @@
 package com.shop.e_shop.model;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -27,13 +29,15 @@ public class Product {
     @Column(name = "size", length = 100)
     private String size;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_color")
     private Color idColor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_category")
     private Category idCategory;
+
+
 
     public Integer getId() {
         return id;

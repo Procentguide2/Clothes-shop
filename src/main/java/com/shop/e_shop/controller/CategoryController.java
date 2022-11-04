@@ -2,6 +2,7 @@ package com.shop.e_shop.controller;
 
 import com.shop.e_shop.model.Category;
 import com.shop.e_shop.repository.CategoryRepository;
+import com.shop.e_shop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,10 @@ import java.util.Set;
 public class CategoryController {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    CategoryService categoryService;
 
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> getAllCategories(){
-        return new ResponseEntity<>(categoryRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.findAllCategories(), HttpStatus.OK);
     }
-
-    @PostMapping("/categories")
-    public HttpStatus saveCategory(@RequestBody Category category){
-        categoryRepository.save(category);
-        return HttpStatus.ACCEPTED;
-    }
-
-
 }

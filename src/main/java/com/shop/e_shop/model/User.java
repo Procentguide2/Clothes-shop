@@ -1,9 +1,6 @@
 package com.shop.e_shop.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
@@ -18,8 +15,8 @@ public class User {
     @Column(name = "password", length = 100)
     private String password;
 
-    @Column(name = "isAdmin")
-    private Boolean isAdmin;
+    //@Column(name = "isAdmin")
+    //private Boolean isAdmin;
 
     public Integer getId() {
         return id;
@@ -45,12 +42,12 @@ public class User {
         this.password = password;
     }
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
+    //public Boolean getIsAdmin() {
+     //   return isAdmin;
+    //}
 
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
+    //public void setIsAdmin(Boolean isAdmin) {
+    //    this.isAdmin = isAdmin;
+    //}
 
 }
