@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class CategoryController {
@@ -24,9 +26,9 @@ public class CategoryController {
     }
 
     @PostMapping("/categories")
-    public String saveCategory(@RequestBody Category category){
+    public HttpStatus saveCategory(@RequestBody Category category){
         categoryRepository.save(category);
-        return "redirect:/categories";
+        return HttpStatus.ACCEPTED;
     }
 
 
