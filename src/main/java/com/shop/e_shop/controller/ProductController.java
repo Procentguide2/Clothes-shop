@@ -35,11 +35,13 @@ public class ProductController {
 
     @GetMapping("/product/fav/{id}")
     public List<Product> getFavUserProducts(@PathVariable("id") Integer userId){
+        List<Product> favProducts = new ArrayList<>();
         Optional<User> foundUser = userService.findUser(userId);
-        List<Favorite> userFavorite = favoriteService.findAllUserFavorites(foundUser.get()); //TODO replace to service
-        List<Product> favProducts = new LinkedList<>();
-        for (Favorite fav : userFavorite){
-            favProducts.add(fav.getIdProduct());
+        if (foundUser.isPresent()){
+            List<Favorite> userFavorite = favoriteService.findAllUserFavorites(foundUser.get());
+            for (Favorite fav : userFavorite){
+                favProducts.add(fav.getIdProduct());
+            }
         }
         return favProducts ;
     }
@@ -54,8 +56,7 @@ public class ProductController {
         return productService.findProduct(id);
     }
 
-    /*
-    @GetMapping("/count/{productId}")
+    @GetMapping("/product/count/fav/{productId}")
     public Integer countFavoriteProducts(@PathVariable("productId") Integer productId){
         int count = 0;
         Optional<Product> foundProduct = productService.findProduct(productId);
@@ -66,13 +67,10 @@ public class ProductController {
             }
         }
         return count;
-    }*/
+    }
 
-    //Код выше выдает сколько юзеров заказало одежду по ее идшнику
-
-    //считает по идшнику юзера количество заказнных предметов
-    @GetMapping("/product/count/{id}")
-    public Integer countFavoriteProducts(@PathVariable("id") Integer userId ) {
+    @GetMapping("/product/count/user/fav/{id}")
+    public Integer countUserFavoriteProducts(@PathVariable("id") Integer userId ) {
         int count = 0;
         Optional<User> foundUser = userService.findUser(userId);
         if (foundUser.isPresent()) {
