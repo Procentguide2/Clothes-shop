@@ -3,11 +3,11 @@ package com.shop.e_shop.controller;
 import com.shop.e_shop.model.Favorite;
 import com.shop.e_shop.model.Product;
 import com.shop.e_shop.model.User;
-import com.shop.e_shop.repository.FavoriteRepository;
 import com.shop.e_shop.service.FavoriteService;
 import com.shop.e_shop.service.ProductService;
 import com.shop.e_shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -23,8 +23,6 @@ public class ProductController {
     UserService userService;
     @Autowired
     FavoriteService favoriteService;
-    @Autowired
-    FavoriteRepository favoriteRepository;
 
     @GetMapping("/product")
     public List<Product> getNewProduct(){
@@ -61,7 +59,7 @@ public class ProductController {
         int count = 0;
         Optional<Product> foundProduct = productService.findProduct(productId);
         if(foundProduct.isPresent()){
-            List<Favorite> productFavs = favoriteRepository.getAllByIdProduct(foundProduct.get());
+            List<Favorite> productFavs = favoriteService.findAllFavoriteByProduct(foundProduct.get());
             for (Favorite fav : productFavs){
                 count += 1;
             }
@@ -82,6 +80,15 @@ public class ProductController {
         return count;
     }
 
+    @PostMapping("/product")
+    public void createOrUpdateProduct(@RequestBody Product product){
+        productService.saveProduct(product);
+    }
+
+    @DeleteMapping("/product/{id}")
+    public void deleteProduct(@PathVariable("id") Integer productId){
+        productService.deleteProduct(productId);
+    }
 
     @PostMapping("/product/fav")
     public void addFavorite(@RequestBody Favorite favorite){

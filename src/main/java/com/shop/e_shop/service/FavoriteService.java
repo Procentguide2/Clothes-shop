@@ -1,6 +1,7 @@
 package com.shop.e_shop.service;
 
 import com.shop.e_shop.model.Favorite;
+import com.shop.e_shop.model.Product;
 import com.shop.e_shop.model.User;
 import com.shop.e_shop.repository.FavoriteRepository;
 import com.shop.e_shop.repository.UserRepository;
@@ -23,6 +24,10 @@ public class FavoriteService {
 
     public List<Favorite> findAllUserFavorites(User user){
         return favoriteRepository.getAllByIdUser(user);
+    }
+
+    public List<Favorite> findAllFavoriteByProduct(Product product){
+        return favoriteRepository.getAllByIdProduct(product);
     }
 
     public Optional<Favorite> findFavorite(Integer id){
