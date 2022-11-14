@@ -1,5 +1,6 @@
 package com.shop.e_shop.controller;
 
+import com.shop.e_shop.model.EmailWrapper;
 import com.shop.e_shop.model.User;
 import com.shop.e_shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class UserController {
     }
 
     @PostMapping("/user/get/email")
-    public int getUserIdByEmail(@RequestBody String email){
-        User user = userService.findUserByEmail(email);
+    public int getUserIdByEmail(@RequestBody EmailWrapper emailWrapper){
+        User user = userService.findUserByEmail(emailWrapper.getEmail());
         return user.getId();
     }
 
