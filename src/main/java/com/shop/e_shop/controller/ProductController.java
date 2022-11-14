@@ -80,6 +80,11 @@ public class ProductController {
         return count;
     }
 
+    @PostMapping("/product/fav")
+    public void addFavorite(@RequestBody Favorite favorite){
+        favoriteService.saveFavorite(favorite);
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/product")
     public void createOrUpdateProduct(@RequestBody Product product){
@@ -90,12 +95,6 @@ public class ProductController {
     @DeleteMapping("/product/{id}")
     public void deleteProduct(@PathVariable("id") Integer productId){
         productService.deleteProduct(productId);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @PostMapping("/product/fav")
-    public void addFavorite(@RequestBody Favorite favorite){
-        favoriteService.saveFavorite(favorite);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
