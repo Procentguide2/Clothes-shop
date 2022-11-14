@@ -18,6 +18,7 @@ public class UserController {
 
     @PostMapping("/user/register")
     public void userRegistration(@RequestBody User user){
+        user.setIsAdmin("0");
         userService.saveUser(user);
     }
 
