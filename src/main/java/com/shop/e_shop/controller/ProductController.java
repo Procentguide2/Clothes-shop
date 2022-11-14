@@ -87,6 +87,14 @@ public class ProductController {
         favoriteService.saveFavorite(new Favorite(product,user));
     }
 
+    @DeleteMapping("/product/fav")
+    public void deleteFavorite(@RequestParam(name = "idUser") int userId, @RequestParam(name = "idProduct") int productId){
+        User user = userService.findUser(userId).get();
+        Product product = productService.findProduct(productId).get();
+        Favorite favorite = favoriteService.findFavoriteByIdUserAndIdProduct(user,product);
+        favoriteService.deleteFavorite(favorite.getId());
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/product")
     public void createOrUpdateProduct(@RequestBody Product product){
@@ -97,12 +105,6 @@ public class ProductController {
     @DeleteMapping("/product/{id}")
     public void deleteProduct(@PathVariable("id") Integer productId){
         productService.deleteProduct(productId);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @DeleteMapping("/product/fav/{id}")
-    public void deleteFavorite(@PathVariable("id") Integer id){
-        favoriteService.deleteFavorite(id);
     }
 
 }

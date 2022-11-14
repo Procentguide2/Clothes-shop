@@ -16,6 +16,9 @@ public class FavoriteService {
     @Autowired
     FavoriteRepository favoriteRepository;
 
+    public Favorite findFavoriteByIdUserAndIdProduct(User user, Product product){
+        return favoriteRepository.findFavoriteByIdUserAndIdProduct(user,product);
+    }
 
     public List<Favorite> findAllFavorites(){
         return favoriteRepository.findAll();
