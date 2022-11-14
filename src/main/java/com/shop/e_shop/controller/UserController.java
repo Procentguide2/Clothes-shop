@@ -20,4 +20,10 @@ public class UserController {
         userService.saveUser(user);
     }
 
+    @PostMapping("/user/get/email")
+    public int getUserIdByEmail(@RequestBody String email){
+        User user = userService.findUserByEmail(email);
+        return user.getId();
+    }
+
 }
