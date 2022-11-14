@@ -81,8 +81,10 @@ public class ProductController {
     }
 
     @PostMapping("/product/fav")
-    public void addFavorite(@RequestBody Favorite favorite){
-        favoriteService.saveFavorite(favorite);
+    public void addFavorite(@RequestParam(name = "idUser") int userId, @RequestParam(name = "idProduct") int productId){
+        User user = userService.findUser(userId).get();
+        Product product = productService.findProduct(productId).get();
+        favoriteService.saveFavorite(new Favorite(product,user));
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

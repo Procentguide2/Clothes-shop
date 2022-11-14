@@ -21,6 +21,15 @@ public class Favorite {
     @JoinColumn(name = "id_user")
     private User idUser;
 
+    public Favorite() {
+
+    }
+
+    public Favorite(Product idProduct, User idUser) {
+        this.idProduct = idProduct;
+        this.idUser = idUser;
+    }
+
     public Integer getId() {
         return id;
     }
