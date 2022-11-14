@@ -7,6 +7,7 @@ import com.shop.e_shop.service.FavoriteService;
 import com.shop.e_shop.service.ProductService;
 import com.shop.e_shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -79,21 +80,25 @@ public class ProductController {
         return count;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/product")
     public void createOrUpdateProduct(@RequestBody Product product){
         productService.saveProduct(product);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping("/product/{id}")
     public void deleteProduct(@PathVariable("id") Integer productId){
         productService.deleteProduct(productId);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/product/fav")
     public void addFavorite(@RequestBody Favorite favorite){
         favoriteService.saveFavorite(favorite);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping("/product/fav/{id}")
     public void deleteFavorite(@PathVariable("id") Integer id){
         favoriteService.deleteFavorite(id);

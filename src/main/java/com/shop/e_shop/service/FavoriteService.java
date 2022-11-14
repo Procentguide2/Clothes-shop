@@ -4,7 +4,6 @@ import com.shop.e_shop.model.Favorite;
 import com.shop.e_shop.model.Product;
 import com.shop.e_shop.model.User;
 import com.shop.e_shop.repository.FavoriteRepository;
-import com.shop.e_shop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

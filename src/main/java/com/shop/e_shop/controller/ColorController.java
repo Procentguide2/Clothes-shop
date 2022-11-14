@@ -3,6 +3,7 @@ package com.shop.e_shop.controller;
 import com.shop.e_shop.service.ColorService;
 import com.shop.e_shop.model.Color;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,11 +26,13 @@ public class ColorController {
         return colorService.findColor(id);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/colors")
     public void createColor(@RequestBody Color color){
         colorService.saveColor(color);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping("/colors/{id}")
     public void deleteColor(@PathVariable("id") Integer id){
         colorService.deleteColor(id);
