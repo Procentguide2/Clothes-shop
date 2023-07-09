@@ -1,15 +1,11 @@
 package com.shop.e_shop.controller;
 
-import com.shop.e_shop.model.EmailWrapper;
 import com.shop.e_shop.model.User;
 import com.shop.e_shop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -32,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/user/get/email")
-    public int getUserIdByEmail(@RequestBody EmailWrapper emailWrapper){
-        User user = userService.findUserByEmail(emailWrapper.getEmail());
+    public int getUserIdByEmail(@RequestParam String email){
+        User user = userService.findUserByEmail(email);
         return user.getId();
     }
 

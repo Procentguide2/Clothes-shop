@@ -56,28 +56,22 @@ public class ProductController {
 
     @GetMapping("/product/count/fav/{productId}")
     public Integer countFavoriteProducts(@PathVariable("productId") Integer productId){
-        int count = 0;
         Optional<Product> foundProduct = productService.findProduct(productId);
+        List<Favorite> productFavs = new ArrayList<>();
         if(foundProduct.isPresent()){
-            List<Favorite> productFavs = favoriteService.findAllFavoriteByProduct(foundProduct.get());
-            for (Favorite fav : productFavs){
-                count += 1;
-            }
+            productFavs = favoriteService.findAllFavoriteByProduct(foundProduct.get());
         }
-        return count;
+        return productFavs.size();
     }
 
     @GetMapping("/product/count/user/fav/{id}")
     public Integer countUserFavoriteProducts(@PathVariable("id") Integer userId ) {
-        int count = 0;
         Optional<User> foundUser = userService.findUser(userId);
+        List<Favorite> userFavorite = new ArrayList<>();
         if (foundUser.isPresent()) {
-            List<Favorite> userFavorite = favoriteService.findAllUserFavorites(foundUser.get());
-            for (Favorite fav : userFavorite) {
-                count += 1;
-            }
+            userFavorite = favoriteService.findAllUserFavorites(foundUser.get());
         }
-        return count;
+        return userFavorite.size();
     }
 
     @PostMapping("/product/fav")
