@@ -1,8 +1,7 @@
 package com.shop.e_shop.service;
 
-import com.shop.e_shop.model.User;
 import com.shop.e_shop.model.ShopUserDetails;
-import com.shop.e_shop.service.UserService;
+import com.shop.e_shop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

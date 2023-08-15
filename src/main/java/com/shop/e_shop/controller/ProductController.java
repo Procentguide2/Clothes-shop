@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -25,23 +25,13 @@ public class ProductController {
     FavoriteService favoriteService;
 
     @GetMapping("/product")
-    public List<Product> getNewProduct(){
-        List<Product> products = productService.findAllProducts();
-        Collections.reverse(products);
-        return products.stream().limit(18).collect(Collectors.toList());
+    public List<Product> getNewProducts(){
+        return productService.getNewProducts();
     }
 
     @GetMapping("/product/fav/{id}")
     public List<Product> getFavUserProducts(@PathVariable("id") Integer userId){
-        List<Product> favProducts = new ArrayList<>();
-        Optional<User> foundUser = userService.findUser(userId);
-        if (foundUser.isPresent()){
-            List<Favorite> userFavorite = favoriteService.findAllUserFavorites(foundUser.get());
-            for (Favorite fav : userFavorite){
-                favProducts.add(fav.getIdProduct());
-            }
-        }
-        return favProducts ;
+        return productService.getFavUserProducts(userId) ;
     }
 
     @GetMapping("/product/for/{gender}")
@@ -56,22 +46,12 @@ public class ProductController {
 
     @GetMapping("/product/count/fav/{productId}")
     public Integer countFavoriteProducts(@PathVariable("productId") Integer productId){
-        Optional<Product> foundProduct = productService.findProduct(productId);
-        List<Favorite> productFavs = new ArrayList<>();
-        if(foundProduct.isPresent()){
-            productFavs = favoriteService.findAllFavoriteByProduct(foundProduct.get());
-        }
-        return productFavs.size();
+        return productService.countFavoriteProducts(productId);
     }
 
     @GetMapping("/product/count/user/fav/{id}")
     public Integer countUserFavoriteProducts(@PathVariable("id") Integer userId ) {
-        Optional<User> foundUser = userService.findUser(userId);
-        List<Favorite> userFavorite = new ArrayList<>();
-        if (foundUser.isPresent()) {
-            userFavorite = favoriteService.findAllUserFavorites(foundUser.get());
-        }
-        return userFavorite.size();
+        return productService.countUserFavoriteProducts(userId);
     }
 
     @PostMapping("/product/fav")

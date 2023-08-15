@@ -1,16 +1,15 @@
 package com.shop.e_shop.controller;
 
 import com.shop.e_shop.model.Category;
-import com.shop.e_shop.repository.CategoryRepository;
 import com.shop.e_shop.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin
 @RestController
