@@ -1,6 +1,9 @@
 package com.shop.e_shop.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product")
@@ -28,15 +31,13 @@ public class Product {
     @Column(name = "size", length = 100)
     private String size;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_color")
     private Color idColor;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_category")
     private Category idCategory;
-
-
 
     public Integer getId() {
         return id;
@@ -110,4 +111,16 @@ public class Product {
         this.idCategory = idCategory;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) && Objects.equals(img, product.img) && Objects.equals(title, product.title) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(gender, product.gender) && Objects.equals(size, product.size) && Objects.equals(idColor, product.idColor) && Objects.equals(idCategory, product.idCategory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, img, title, description, price, gender, size, idColor, idCategory);
+    }
 }

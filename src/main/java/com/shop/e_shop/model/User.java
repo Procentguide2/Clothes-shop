@@ -19,6 +19,18 @@ public class User {
     @Column(name = "is_admin", length = 1)
     private String is_admin;
 
+    public User(String email, String password, String is_admin) {
+        this.email = email;
+        this.password = password;
+        this.is_admin = is_admin;
+    }
+
+    public User(){
+
+    }
+
+
+
     public Integer getId() {
         return id;
     }
